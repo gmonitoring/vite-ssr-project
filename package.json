@@ -1,0 +1,53 @@
+{
+  "name": "vite-ssr-project",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "ts-node server",
+    "serve": "cross-env NODE_ENV=production ts-node server",
+    "build": "npm run build:server && npm run build:client",
+    "build:client": "vite build --outDir dist/client",
+    "build:server": "vite build --outDir dist/server --ssr src/entry-server.tsx",
+    "generate": "vite build --outDir dist/static && npm run build:server && ts-node prerender",
+    "typecheck": "tsc --pretty --noEmit",
+    "startJSONServer": "ts-node jsonServer.ts"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.10.15",
+    "@types/es6-promise": "^3.3.0",
+    "axios": "^1.2.0",
+    "class-transformer": "^0.5.1",
+    "compression": "^1.7.4",
+    "express": "^4.18.2",
+    "mobx": "^6.7.0",
+    "mobx-react": "^7.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.3"
+  },
+  "devDependencies": {
+    "@types/compression": "^1.7.2",
+    "@types/express": "^4.17.14",
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "^18.0.8",
+    "@typescript-eslint/eslint-plugin": "^5.10.0",
+    "@typescript-eslint/parser": "^5.10.0",
+    "@vitejs/plugin-react": "^2.2.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.7.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "lodash.unescape": "^4.0.1",
+    "path": "^0.12.7",
+    "prettier": "^2.5.1",
+    "typescript": "^4.9.3",
+    "vite": "^3.2.3",
+    "vite-plugin-dynamic-import": "^1.2.4"
+  }
+}
