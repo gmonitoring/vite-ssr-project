@@ -3,7 +3,7 @@ import { RootStore } from "../rootStore";
 
 export default class ExchangeRateStore {
   root: RootStore;
-  dollarExchangeRate: number | null = null;
+  dollarExchangeRate: number = 0;
 
   constructor(root: RootStore) {
     this.root = root;
@@ -14,6 +14,8 @@ export default class ExchangeRateStore {
   }
 
   getDollarExchangeRate(): void {
-    this.dollarExchangeRate = Math.random() * (80 - 60) + 60;
+    this.dollarExchangeRate = Number(
+      (Math.random() * (80 - 60) + 60).toFixed(2)
+    );
   }
 }

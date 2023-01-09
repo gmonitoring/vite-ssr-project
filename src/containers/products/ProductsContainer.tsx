@@ -13,7 +13,7 @@ export type ProductContainerProps = {
 
 export const ProductContainer: FC<ProductContainerProps> = observer(
   ({ exchangeRateState }) => {
-    const { cardStore } = useRootStore();
+    const { cardStore, exchangeRateStore } = useRootStore();
     const categories = useGetCategoriesInInterval();
     const setCardProduct = useSetCardProducts();
 
@@ -40,6 +40,7 @@ export const ProductContainer: FC<ProductContainerProps> = observer(
                             )?.cardCount ?? 0
                           }
                           product={product}
+                          exchangeRate={exchangeRateStore.dollarExchangeRate}
                           exchangeRateState={exchangeRateState}
                           onHandleSetCard={setCardProduct}
                         />

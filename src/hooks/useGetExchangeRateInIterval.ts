@@ -10,17 +10,16 @@ export function useGetExchangeRateInInterval(): ExchangeRateState {
 
   useEffect(() => {
     exchangeRateStore.getDollarExchangeRate();
-    let lastDollarExchangeRate: number | null =
-      exchangeRateStore.dollarExchangeRate;
+    let lastDollarExchangeRate: number = exchangeRateStore.dollarExchangeRate;
 
     const interval: NodeJS.Timer = setInterval(async () => {
       exchangeRateStore.getDollarExchangeRate();
 
       if (exchangeRateStore.dollarExchangeRate && lastDollarExchangeRate) {
         if (lastDollarExchangeRate > exchangeRateStore.dollarExchangeRate)
-          setDollarRateState("up");
-        if (lastDollarExchangeRate < exchangeRateStore.dollarExchangeRate)
           setDollarRateState("down");
+        if (lastDollarExchangeRate < exchangeRateStore.dollarExchangeRate)
+          setDollarRateState("up");
       }
 
       lastDollarExchangeRate = exchangeRateStore.dollarExchangeRate;

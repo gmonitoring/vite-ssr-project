@@ -22,13 +22,21 @@ export default class CardStore {
   }
 
   setCardProduct = (product: CardProduct) => {
-    const newCard: Array<CardProduct> = [
-      ...this.cardProducts.filter(
-        (cardProduct) => cardProduct.id !== product.id
-      ),
-    ];
-    if (product.cardCount > 0 && product.count > 0) newCard.push(product);
+    const newCard: Array<CardProduct> = [...this.cardProducts];
 
+    const productIndex = newCard.findIndex(
+      (cardProduct) => cardProduct.id === product.id
+    );
+
+    if (productIndex >= 0) {
+      if (product.cardCount === 0) {
+        newCard.splice(productIndex, 1);
+      } else {
+        newCard[productIndex] = product;
+      }
+    } else {
+      newCard.push(product);
+    }
     this.setCardProducts(newCard);
   };
 }

@@ -9,6 +9,7 @@ import { ExchangeRateState } from "../../hooks/useGetExchangeRateInIterval";
 export type ProductCardProps = {
   product: Product;
   cardCount?: number;
+  exchangeRate: number;
   exchangeRateState?: ExchangeRateState;
   onHandleSetCard: (product: Product, count: number) => void;
 };
@@ -19,6 +20,7 @@ export const ProductCard: FC<ProductCardProps> = memo(
       product,
       cardCount = 0,
       exchangeRateState = "default",
+      exchangeRate,
       onHandleSetCard,
     }) => {
       const { name, price, count } = product;
@@ -66,7 +68,9 @@ export const ProductCard: FC<ProductCardProps> = memo(
                 mr={2}
                 bgcolor={getPriceColor(exchangeRateState)}
               >
-                <Typography variant="caption">{price} руб.</Typography>
+                <Typography variant="caption">
+                  {(exchangeRate * price).toFixed(2)} руб.
+                </Typography>
               </Box>
               {count > 0 ? (
                 <Box display="flex" mr={2}>

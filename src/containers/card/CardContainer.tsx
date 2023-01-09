@@ -12,7 +12,7 @@ export type CardContainerProps = {
 
 export const CardContainer: FC<CardContainerProps> = observer(
   ({ exchangeRateState }) => {
-    const { cardStore } = useRootStore();
+    const { cardStore, exchangeRateStore } = useRootStore();
     const setCardProduct = useSetCardProducts();
 
     return (
@@ -31,16 +31,22 @@ export const CardContainer: FC<CardContainerProps> = observer(
                   )?.cardCount ?? 0
                 }
                 product={product}
+                exchangeRate={exchangeRateStore.dollarExchangeRate}
                 exchangeRateState={exchangeRateState}
                 onHandleSetCard={setCardProduct}
               />
             </Box>
           ))}
           {cardStore.cardProducts.length > 0 && (
-            <Box maxWidth="300px">
-              <Button variant="contained" fullWidth size="large">
-                Купить
-              </Button>
+            <Box display="flex" flexDirection="column">
+              <Box mb={2}>
+                <Typography></Typography>
+              </Box>
+              <Box maxWidth="300px">
+                <Button variant="contained" fullWidth size="large">
+                  Купить
+                </Button>
+              </Box>
             </Box>
           )}
           {cardStore.cardProducts.length === 0 && (
