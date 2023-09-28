@@ -1,10 +1,10 @@
 import { StrictMode } from "react";
-import { createRoot, hydrateRoot } from "react-dom/client";
-import { RootStoreProvider } from "./store/rootStoreProvider";
-import { Router } from "./Router";
 import { BrowserRouter } from "react-router-dom";
 import { enableStaticRendering } from "mobx-react";
-import { rehydrate } from "./store/storeUtils/hydrate";
+import { createRoot, hydrateRoot } from "react-dom/client";
+import { RootStoreProvider } from "src/store/rootStoreProvider";
+import { rehydrate } from "src/store/storeUtils/hydrate";
+import { Router } from "src/Router";
 
 const container = document.getElementById("root");
 

@@ -1,6 +1,6 @@
-import { RootStore } from "../rootStore";
 import { plainToInstance } from "class-transformer";
-import {mergeObservableDeep} from "./mergeObservableDeep";
+import { RootStore } from "src/store/rootStore";
+import { mergeObservableDeep } from "src/store/storeUtils/mergeObservableDeep";
 
 export function rehydrate(): RootStore {
   const store = new RootStore();

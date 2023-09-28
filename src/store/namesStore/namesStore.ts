@@ -1,6 +1,6 @@
-import { getNamesApi, Names } from "../../api/names/names";
 import { makeObservable, observable, action } from "mobx";
-import { RootStore } from "../rootStore";
+import { RootStore } from "src/store/rootStore";
+import { getNamesApi, Names } from "src/api/names/names";
 
 export default class NamesStore {
   root: RootStore;

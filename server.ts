@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
 import express from "express";
+import { fileURLToPath } from "url";
 import { instanceToPlain } from "class-transformer";
 
 const isTest = process.env.VITEST;
@@ -16,7 +16,7 @@ export async function createServer(root = process.cwd(), hmrPort = 3001) {
   if (isProd) {
     app.use((await import("compression")).default());
     app.use(
-      (await import("serve-static")).default(resolve("dist/client"), {
+      (await import("serve-static")).default(resolve("./dist/client"), {
         index: false,
       })
     );
@@ -44,10 +44,10 @@ export async function createServer(root = process.cwd(), hmrPort = 3001) {
 
   const { getStore, prefetch, render } = isProd
     ? await import("./dist/server/entry-server.js")
-    : await vite.ssrLoadModule("src/entry-server.tsx");
+    : await vite.ssrLoadModule("./src/entry-server.tsx");
 
   const indexProd = isProd
-    ? fs.readFileSync(resolve("dist/client/index.html"), "utf-8")
+    ? fs.readFileSync(resolve("./dist/client/index.html"), "utf-8")
     : "";
 
   return { app, vite, indexProd, getStore, prefetch, render };

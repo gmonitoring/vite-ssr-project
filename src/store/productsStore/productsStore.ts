@@ -1,6 +1,6 @@
-import { getProductsApi, Products } from "../../api/products/products";
 import { makeObservable, observable, action } from "mobx";
-import { RootStore } from "../rootStore";
+import { RootStore } from "src/store/rootStore";
+import { getProductsApi, Products } from "src/api/products/products";
 
 export default class ProductsStore {
   root: RootStore;

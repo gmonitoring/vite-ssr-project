@@ -1,19 +1,19 @@
 import { FC } from "react";
 import { observer } from "mobx-react";
 import { Box, Button, Typography } from "@mui/material";
-import { ProductCard } from "../../components/productCard/ProductCard";
-import { useRootStore } from "../../hooks/useRootStore";
-import { useSetCardProducts } from "../../hooks/useSetCardProducts";
-import { ExchangeRateState } from "../../hooks/useGetExchangeRateInIterval";
+import { ProductCard } from "src/components/productCard/ProductCard";
+import { useRootStore } from "src/hooks/useRootStore";
+import { RateDirection } from "src/store/exchangeRateStore/exchangeRateStore";
+import { useCart } from "src/hooks/useCart";
 
-export type CardContainerProps = {
-  exchangeRateState: ExchangeRateState;
+export type CartContainerProps = {
+  exchangeRateState: RateDirection;
 };
 
-export const CardContainer: FC<CardContainerProps> = observer(
+export const CartContainer: FC<CartContainerProps> = observer(
   ({ exchangeRateState }) => {
-    const { cardStore, exchangeRateStore } = useRootStore();
-    const setCardProduct = useSetCardProducts();
+    const { cartStore, exchangeRateStore } = useRootStore();
+    const { setCartProduct, getCartProduct } = useCart();
 
     return (
       <Box display="flex" flexDirection="column" width="100%">
@@ -22,26 +22,19 @@ export const CardContainer: FC<CardContainerProps> = observer(
         </Box>
 
         <Box display="flex" flexDirection="column">
-          {cardStore.cardProducts.map((product) => (
+          {cartStore.cartProducts.map((product) => (
             <Box key={product.id} mb={4}>
               <ProductCard
-                cardCount={
-                  cardStore.cardProducts.find(
-                    (cardProduct) => cardProduct.id === product.id
-                  )?.cardCount ?? 0
-                }
+                cartCount={getCartProduct(product.id)?.cartCount ?? 0}
                 product={product}
                 exchangeRate={exchangeRateStore.dollarExchangeRate}
                 exchangeRateState={exchangeRateState}
-                onHandleSetCard={setCardProduct}
+                onHandleSetCard={setCartProduct}
               />
             </Box>
           ))}
-          {cardStore.cardProducts.length > 0 && (
+          {cartStore.cartProducts.length > 0 && (
             <Box display="flex" flexDirection="column">
-              <Box mb={2}>
-                <Typography></Typography>
-              </Box>
               <Box maxWidth="300px">
                 <Button variant="contained" fullWidth size="large">
                   Купить
@@ -49,7 +42,7 @@ export const CardContainer: FC<CardContainerProps> = observer(
               </Box>
             </Box>
           )}
-          {cardStore.cardProducts.length === 0 && (
+          {cartStore.cartProducts.length === 0 && (
             <Box p={6}>
               <Typography variant="h5" textAlign="center">
                 Корзина пуста

@@ -1,21 +1,18 @@
 import { StrictMode } from "react";
 import ReactDOMServer from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
-import { RootStoreProvider } from "./store/rootStoreProvider";
-import { Router } from "./Router";
 import { enableStaticRendering } from "mobx-react";
-import { RootStore } from "./store/rootStore";
+import { RootStore } from "src/store/rootStore";
+import { RootStoreProvider } from "src/store/rootStoreProvider";
+import { Router } from "src/Router";
 
 export function getStore(): RootStore {
-  return new RootStore()
+  return new RootStore();
 }
 
-export async function prefetch(
-  url: string,
-  store: RootStore
-): Promise<void> {
+export async function prefetch(url: string, store: RootStore): Promise<void> {
   const path = url === "/" ? "/home" : url;
-  const { prefetch } = await import(`@/pages${path}.tsx`);
+  const { prefetch } = await import(`src/pages${path}.tsx`);
   await prefetch?.(store);
 }
 

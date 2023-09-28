@@ -5,30 +5,30 @@
     "node": true
   },
   "extends": [
-    "plugin:react/recommended",
     "google",
-    "plugin:react-hooks/recommended",
+    "prettier",
     "plugin:import/recommended",
-    "plugin:import/typescript",
-    "prettier"
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
   ],
+
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["react", "@typescript-eslint"],
   "settings": {
     "import/resolver": {
       "node": {
         "paths": ["src"],
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      },
+      "typescript": {
+        "paths": ["src"],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     }
   },
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "ecmaVersion": "latest",
-    "sourceType": "module"
-  },
-  "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "require-jsdoc": 0,
@@ -46,5 +46,6 @@
         "args": "none"
       }
     ]
-  }
+  },
+  "ignorePatterns": ["dist", "node_modules"]
 }

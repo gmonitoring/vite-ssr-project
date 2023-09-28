@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const httpClient = axios.create({
-  baseURL: "https://www.anapioficeandfire.com/api/", // add to env
+  baseURL: "https://www.anapioficeandfire.com/api/", // TODO add to env
   timeout: 5000,
   responseType: "json",
   headers: {

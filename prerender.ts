@@ -6,7 +6,10 @@ import { instanceToPlain } from "class-transformer";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const toAbsolute = (p: string) => path.resolve(__dirname, p);
 
-const template = fs.readFileSync(toAbsolute("dist/static/index.html"), "utf-8");
+const template = fs.readFileSync(
+  toAbsolute("dist/static/index.html"),
+  "utf-8"
+);
 const { getStore, prefetch, render } = await import(
   "./dist/server/entry-server.js"
 );

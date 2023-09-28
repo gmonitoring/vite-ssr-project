@@ -1,8 +1,6 @@
-import { ExchangeRateState } from "../hooks/useGetExchangeRateInIterval";
+import { RateDirection } from "src/store/exchangeRateStore/exchangeRateStore";
 
-export const getPriceColor = (
-  exchangeRateState: ExchangeRateState = "default"
-): string => {
+export const getPriceColor = (exchangeRateState: RateDirection): string => {
   switch (exchangeRateState) {
     case "default":
       return "#cccccc";

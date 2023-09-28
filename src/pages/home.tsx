@@ -1,25 +1,34 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { observer } from "mobx-react";
-import { RootStore } from "../store/rootStore";
 import { Box, Container, Typography } from "@mui/material";
-import { ProductContainer } from "../containers/products/ProductsContainer";
-import { CardContainer } from "../containers/card/CardContainer";
-import { useInitCard } from "../hooks/useInitCard";
-import { useGetExchangeRateInInterval } from "../hooks/useGetExchangeRateInIterval";
-import { useRootStore } from "../hooks/useRootStore";
-import { getPriceColor } from "../utils/getPriceColor";
+import { RootStore } from "src/store/rootStore";
+import { ProductContainer } from "src/containers/products/ProductsContainer";
+import { CartContainer } from "src/containers/cart/CartContainer";
+import { useRootStore } from "src/hooks/useRootStore";
+import { getPriceColor } from "src/utils/getPriceColor";
 
 export async function prefetch(store: RootStore) {
+  store.exchangeRateStore.getDollarExchangeRate(); // Warning no async fn
+
   await Promise.all([
     store.productsStore?.getProducts(),
     store.namesStore?.getNames(),
-  ]);
+  ]).then(() => {
+    store.categoriesStore?.getCategories();
+  });
 }
 
 export const Home: FC = observer(() => {
-  useInitCard();
-  const { exchangeRateStore } = useRootStore();
-  const exchangeRateState = useGetExchangeRateInInterval();
+  const { cartStore, exchangeRateStore } = useRootStore();
+
+  useEffect(() => {
+    cartStore.initCart();
+    exchangeRateStore.getDollarExchangeRateOnInterval();
+
+    return () => {
+      exchangeRateStore.dollarExchangeRateClearInterval();
+    };
+  }, []);
 
   return (
     <Container>
@@ -30,13 +39,17 @@ export const Home: FC = observer(() => {
         px={1}
         mb={2}
         borderRadius="8px"
-        bgcolor={getPriceColor(exchangeRateState)}
+        bgcolor={getPriceColor(exchangeRateStore.dollarExchangeRateDirection)}
       >
         <Typography>1$ = {exchangeRateStore.dollarExchangeRate}руб</Typography>
       </Box>
       <Box display="flex" justifyContent="space-between">
-        <ProductContainer exchangeRateState={exchangeRateState} />
-        <CardContainer exchangeRateState={exchangeRateState} />
+        <ProductContainer
+          exchangeRateState={exchangeRateStore.dollarExchangeRateDirection}
+        />
+        <CartContainer
+          exchangeRateState={exchangeRateStore.dollarExchangeRateDirection}
+        />
       </Box>
     </Container>
   );

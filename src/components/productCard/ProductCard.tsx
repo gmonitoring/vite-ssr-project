@@ -1,16 +1,22 @@
 import { FC, memo } from "react";
 import { observer } from "mobx-react";
 import { Badge, Box, Button, Chip, Typography } from "@mui/material";
-import { Product } from "../../hooks/useGetCategories";
-import { Counter } from "../counter/Counter";
-import { getPriceColor } from "../../utils/getPriceColor";
-import { ExchangeRateState } from "../../hooks/useGetExchangeRateInIterval";
+import { Counter } from "src/components/counter/Counter";
+import { getPriceColor } from "src/utils/getPriceColor";
+import { RateDirection } from "src/store/exchangeRateStore/exchangeRateStore";
+
+export type Product = {
+  id: number;
+  name: string;
+  price: number;
+  count: number;
+};
 
 export type ProductCardProps = {
   product: Product;
-  cardCount?: number;
+  cartCount?: number;
   exchangeRate: number;
-  exchangeRateState?: ExchangeRateState;
+  exchangeRateState?: RateDirection;
   onHandleSetCard: (product: Product, count: number) => void;
 };
 
@@ -18,9 +24,9 @@ export const ProductCard: FC<ProductCardProps> = memo(
   observer(
     ({
       product,
-      cardCount = 0,
+      cartCount = 0,
       exchangeRateState = "default",
-      exchangeRate,
+      exchangeRate = 0,
       onHandleSetCard,
     }) => {
       const { name, price, count } = product;
@@ -40,12 +46,12 @@ export const ProductCard: FC<ProductCardProps> = memo(
           <Box display="flex" flexDirection="column">
             <Box display="flex" alignItems="center">
               <Box mr={2}>
-                {cardCount > 0 ? (
+                {cartCount > 0 ? (
                   <Box display="flex" flexDirection="column">
                     <Box mb={1}>
                       <Counter
                         max={count}
-                        value={cardCount}
+                        value={cartCount}
                         onHandleChange={(count) =>
                           onHandleSetCard(product, count)
                         }
@@ -83,7 +89,7 @@ export const ProductCard: FC<ProductCardProps> = memo(
                 </Typography>
               )}
             </Box>
-            {count < cardCount && (
+            {count < cartCount && (
               <Typography variant="caption" color="error.main">
                 Недостаточно товара в наличии
               </Typography>

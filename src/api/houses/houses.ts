@@ -1,6 +1,5 @@
-import httpClient from '../../plugins/axiosService';
+import httpClient from 'src/plugins/axiosService';
 
-// Test API
 export type housesRequestParams = {
   page: number;
   pageSize: number;

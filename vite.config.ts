@@ -8,9 +8,13 @@ export default defineConfig({
   // build: {
   //   minify: false,
   // },
+  base: "./",
   resolve: {
     alias: {
-      '@': path.join(__dirname, 'src/'),
+      src: path.join(__dirname, "./src"),
+      db: path.join(__dirname, "./db"),
+      public: path.join(__dirname, "./public"),
+      dist: path.join(__dirname, "./dist"),
     },
   },
 });
