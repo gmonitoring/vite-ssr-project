@@ -1,5 +1,5 @@
-import { useRootStore } from "./useRootStore";
-import { CartProduct } from "../store/cartStore/cartStore";
+import { useRootStore } from "src/hooks/useRootStore";
+import { CartProduct } from "src/store/cartStore/cartStore";
 import { Product } from "src/store/categoriesStore/categoriesStore";
 
 export type CartFunctions = {

@@ -6,10 +6,7 @@ import { instanceToPlain } from "class-transformer";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const toAbsolute = (p: string) => path.resolve(__dirname, p);
 
-const template = fs.readFileSync(
-  toAbsolute("dist/static/index.html"),
-  "utf-8"
-);
+const template = fs.readFileSync(toAbsolute("dist/static/index.html"), "utf-8");
 const { getStore, prefetch, render } = await import(
   "./dist/server/entry-server.js"
 );
@@ -22,11 +19,12 @@ const routesToPrerender = fs
   });
 
 (async () => {
-  for (const url of routesToPrerender) {
-    const store = getStore();
-    const { appHtml } = render(url, store);
+  const store = getStore();
 
+  for (const url of routesToPrerender) {
     await prefetch(url, store);
+
+    const { appHtml } = render(url, store);
 
     const html = template.replace(`<!--content-->`, appHtml).replace(
       `<!--__STATE__-->`,

@@ -9,22 +9,25 @@ import { getPriceColor } from "src/utils/getPriceColor";
 
 export async function prefetch(store: RootStore) {
   store.exchangeRateStore.getDollarExchangeRate(); // Warning no async fn
-
+  console.log('prefetch');
   await Promise.all([
     store.productsStore?.getProducts(),
     store.namesStore?.getNames(),
   ]).then(() => {
-    store.categoriesStore?.getCategories();
+    store.categoriesStore?.getCategories(); // Warning no async fn
+    console.log("prefetch complete");
   });
 }
 
 export const Home: FC = observer(() => {
-  const { cartStore, exchangeRateStore } = useRootStore();
+  const { cartStore, exchangeRateStore, productsStore } = useRootStore();
+  console.log(123);
+  console.log(productsStore.products);
+  console.log(exchangeRateStore.dollarExchangeRate);
 
   useEffect(() => {
     cartStore.initCart();
     exchangeRateStore.getDollarExchangeRateOnInterval();
-
     return () => {
       exchangeRateStore.dollarExchangeRateClearInterval();
     };

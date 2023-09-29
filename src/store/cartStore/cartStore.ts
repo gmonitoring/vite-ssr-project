@@ -1,5 +1,5 @@
 import { makeObservable, observable, action } from "mobx";
-import { RootStore } from "../rootStore";
+import { RootStore } from "src/store/rootStore";
 import { Product } from "src/store/categoriesStore/categoriesStore";
 
 export type CartProduct = Product & { cartCount: number };
