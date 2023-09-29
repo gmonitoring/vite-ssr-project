@@ -8,7 +8,7 @@
     "build": "npm run build:server && npm run build:client",
     "build:client": "vite build --outDir dist/client",
     "build:server": "vite build --outDir dist/server --ssr src/entry-server.tsx",
-    "generate": "vite build --outDir dist/static && npm run build && ts-node prerender",
+    "generate": "vite build --outDir dist/static && npm run build:server && ts-node prerender",
     "typecheck": "tsc --pretty --noEmit",
     "lint": "tsc --noEmit && eslint --fix \"**/*.@(js|jsx|ts|tsx)\"",
     "lint:check": "tsc --noEmit && eslint \"**/*.@(js|jsx|ts|tsx)\"",

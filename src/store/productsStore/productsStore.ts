@@ -27,9 +27,14 @@ export default class ProductsStore {
 
   async getProducts(): Promise<void> {
     this.setIsLoadingProducts(true);
-    const products = await getProductsApi();
-    this.setProducts(products);
-    this.setIsLoadingProducts(false);
+
+    try {
+      const products = await getProductsApi();
+      this.setProducts(products);
+      this.setIsLoadingProducts(false);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   setIsLoadingProducts(state: boolean) {

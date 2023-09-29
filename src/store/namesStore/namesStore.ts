@@ -20,9 +20,14 @@ export default class NamesStore {
 
   async getNames(): Promise<void> {
     this.setIsLoadingNames(true);
-    const names = await getNamesApi();
-    this.setNames(names);
-    this.setIsLoadingNames(false);
+
+    try {
+      const names = await getNamesApi();
+      this.setNames(names);
+      this.setIsLoadingNames(false);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   setIsLoadingNames(state: boolean) {
